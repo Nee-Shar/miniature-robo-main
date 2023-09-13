@@ -76,9 +76,10 @@
 //     }
 //   };
 import { Plugins } from "@capacitor/core";
+
 import { initializeApp } from "firebase/app";
 import { doc, getDoc, getDocs, setDoc, deleteDoc } from "firebase/firestore";
-
+import { ScreenBrightness } from "@capacitor-community/screen-brightness";
 import * as AppGeneral from "../socialcalc/AppGeneral";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import firebase from "firebase/app";
@@ -181,6 +182,9 @@ export class Local {
 
   _getAllFiles = async () => {
     try {
+      // Set the brightness:
+      // const brightness = 0.5;
+      // await ScreenBrightness.setBrightness({ brightness });
       const filesCollection = collection(db, "files"); // Assuming "files" is your Firestore collection
       const querySnapshot = await getDocs(filesCollection);
       let arr = {};
