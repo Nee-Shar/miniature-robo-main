@@ -59,7 +59,10 @@ const Menu: React.FC<{
   const doPrint = () => {
     if (isPlatform("hybrid")) {
       const printer = Printer;
-      printer.print(AppGeneral.getCurrentHTMLContent());
+      // printer.print(AppGeneral.getCurrentHTMLContent());
+      const encodedContent = AppGeneral.getCurrentHTMLContent();
+      const decodedContent = decodeURIComponent(encodedContent);
+      printer.print(decodedContent);
     } else {
       const content = AppGeneral.getCurrentHTMLContent();
       var printWindow = window.open("", "", "left=100,top=100");
@@ -73,7 +76,10 @@ const Menu: React.FC<{
       setShowAlert1(true);
       return;
     }
-    const content = AppGeneral.getCSVContent();
+    // const content = AppGeneral.getCSVContent();
+
+    const content = encodeURIComponent(AppGeneral.getSpreadsheetContent());
+
     const data = props.store._getFile(props.file);
     const file = new File(
       (data as any).created,
@@ -93,7 +99,9 @@ const Menu: React.FC<{
       // console.log(filename, _validateName(filename));
       if (await _validateName(filename)) {
         // filename valid . go on save
-        const content = AppGeneral.getCSVContent();
+        // const content = AppGeneral.getCSVContent();
+
+        const content = encodeURIComponent(AppGeneral.getSpreadsheetContent());
         // console.log(content);
         const file = new File(
           new Date().toString(),
